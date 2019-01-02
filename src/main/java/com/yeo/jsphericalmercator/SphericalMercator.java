@@ -19,7 +19,7 @@ public class SphericalMercator {
     double EPSLN = 1.0e-10;
     double D2R = Math.PI / 180;
     double R2D = 180 / Math.PI;
-    // 3857 properties.
+    // 900913 properties.
     double A = 6378137.0;
     double MAXEXTENT = 20037508.342789244;
 
@@ -59,16 +59,15 @@ public class SphericalMercator {
 
         double[] bbox = ArrayUtils.addAll(ll(ll, zoom), ll(ur, zoom));
 
-        // If web mercator requested reproject to 3857.
-        if (srs.equals("3857")) {
-            return convert(bbox, "3857");
+        if (srs.equals("900913")) {
+            return convert(bbox, "900913");
         } else {
             return bbox;
         }
     }
 
     public double[] convert(double[] bbox, String to) {
-        if (to.equals("3857")) {
+        if (to.equals("900913")) {
             return ArrayUtils.addAll(forward(Arrays.copyOfRange(bbox, 0, 2)), forward(Arrays.copyOfRange(bbox, 2, 4)));
         } else {
             return ArrayUtils.addAll(inverse(Arrays.copyOfRange(bbox, 0, 2)), inverse(Arrays.copyOfRange(bbox, 2, 4)));
